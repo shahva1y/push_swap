@@ -50,7 +50,7 @@ int	ft_duplicate_exist(int *tmp, unsigned int length);
 void	ft_index(int *tmp, unsigned int *stack, unsigned int length);
 
 void	ft_increase_index(t_stack *stack);
-void	ft_index_insert_sort(t_stack **src, t_stack **dst, char stack_name, t_status *status);
+void	ft_index_insert_sort(t_stack **src, t_stack **dst, char stack_name);
 void	ft_status_update(t_stack **stack, t_status *status);
 
 //quick_sort_utils.c
@@ -58,5 +58,10 @@ t_stack	*ft_last_less_element(t_stack **stack, t_status *status);
 t_stack	*ft_last_greater_element(t_stack **stack, t_status *status);
 t_stack *ft_push_less(t_stack **stack_src, t_stack **stack_dst, t_status *status);
 void ft_push_greater(t_stack **stack_src, t_stack **stack_dst, t_status *status);
+
+//insert_sort_utils.c
+unsigned long long	ft_rotate_count_to_insert(t_stack *element, t_stack *dst);
+void ft_change_elements_index(t_stack *stack);
+unsigned long long	ft_rotate_count_to_find(t_stack *element, t_stack *stack);
 
 #endif //PUSH_SWAP_H

@@ -1,4 +1,4 @@
-#include "push_swap.h"
+#include "../push_swap.h"
 
 static void	ft_split_stack_a(t_stack **stack_a, t_stack **stack_b, t_status *status)
 {
@@ -50,9 +50,11 @@ static void	ft_merge_stacks(t_stack **stack_a, t_stack **stack_b)
  * Можно было бы написать общий случай сортировки, но мы не стали.
  * Это усложнило бы код в разы.
  */
+
+//дописать для 6 элементов! А контроль количества до 4 элементав будет снаружи, внутри будет до 6 включительно
 void	ft_merge_sort(t_stack **stack_a, t_stack **stack_b, t_status *status)
 {
-	if ((status->max - status->min) < 4)
+	if ((status->max - status->min) < 4) // < 6
 	{
 		ft_split_stack_a(stack_a, stack_b, status);
 		ft_sort_stacks(stack_a, stack_b);

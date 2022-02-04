@@ -1,4 +1,4 @@
-#include "push_swap.h"
+#include "../push_swap.h"
 
 //поменять название, не освещает в полной мере цель функции
 static void	ft_rotate_stack_to(t_stack **stack_a, t_stack *goal, t_status *status, t_stack **stack_b)
@@ -36,7 +36,7 @@ static void	ft_return_to_stack_a(t_stack **stack_b, t_stack **stack_a, t_status 
 	else if ((status->max - status->min) < 50)
 	{
 		ft_increase_index((*stack_b));
-		ft_index_insert_sort(stack_b, stack_a, 'a', status);
+		ft_index_insert_sort(stack_b, stack_a, 'a');
 	}
 	else
 	{

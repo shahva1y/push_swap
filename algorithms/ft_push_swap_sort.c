@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "push_swap.h"
+#include "../push_swap.h"
 
 void	ft_increase_index(t_stack *stack)
 {
@@ -79,10 +79,10 @@ static void	ft_next_iteration(t_stack **stack_a, t_stack **stack_b, t_status *st
 		ft_swap(*stack_a, 'a');
 		(*stack_a)->index = -1;
 	}
-	else if ((status->max - status->min) == 2 || (status->max - status->min) == 3)
-		ft_merge_sort(stack_a, stack_b, status);
 	else if ((status->max - status->min) > 3)
 		ft_quick_sort(stack_a, stack_b, status);
+	else
+		ft_merge_sort(stack_a, stack_b, status);
 }
 
 void ft_push_swap_sort(unsigned int *stack, unsigned long long length)

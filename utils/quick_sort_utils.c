@@ -1,4 +1,4 @@
-#include "push_swap.h"
+#include "../push_swap.h"
 
 t_stack	*ft_last_less_element(t_stack **stack, t_status *status)
 {
