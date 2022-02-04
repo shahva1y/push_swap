@@ -101,7 +101,8 @@ int	main(int argc, char **argv)
 		if (ft_duplicate_exist(tmp, length))
 			ft_error("Error\n");
 		ft_index(tmp, stack, length);
-		push_swap(stack, length);
+		//ft_stack_create();
+		ft_push_swap_sort(stack, length);
 	}
 	return (0);
 }

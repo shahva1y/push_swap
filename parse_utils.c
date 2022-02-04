@@ -64,7 +64,7 @@ int	ft_is_representable(char *str)
 	int_min = "-2147483648";
 	if (str[i] == '-')
 		i++;
-	while(str[i] != '\0')
+	while (str[i] != '\0')
 	{
 		if (str[i] < '0' || str[i] > '9')
 			return (0);

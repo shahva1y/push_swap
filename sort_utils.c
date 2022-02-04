@@ -74,7 +74,7 @@ void	ft_index_insert_sort(t_stack **src, t_stack **dst, char stack_name, t_statu
 	//необходимо дополнительно провить на NULL
 	if (!(*src))
 		return ;
-	ft_increase_index(*src); //обязательная часть при внедрении в основную программу
+	ft_increase_index(*src); //обязательная часть при внедрении в основную программу, вынес выше
 	ft_push(src, dst, stack_name);
 	length = ft_get_stack_length(*src);
 	while (*src)

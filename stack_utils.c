@@ -105,10 +105,8 @@ void ft_push(t_stack **src, t_stack **dst, char dst_name)
 	write(1, "\n", 1);
 }
 
-void ft_stack_sort(t_stack **stack, char stack_name) {
-	/*
-	 * Сортировка 3 элементов - общий случай
-	 */
+void ft_stack_sort(t_stack **stack, char stack_name)
+{
 	if (((((*stack)->up)->value <= ((*stack)->down)->value)
 			&& ((*stack)->value < ((*stack)->up)->value))
 		|| (((*stack)->value > ((*stack)->down)->value)
@@ -121,32 +119,6 @@ void ft_stack_sort(t_stack **stack, char stack_name) {
 		ft_rotate(stack, stack_name);
 	if (((*stack)->value < ((*stack)->down)->value)
 		&& (*stack)->value > ((*stack)->up)->value)
-		ft_reverse_rotate(stack, stack_name);
-}
-
-void ft_stack_reverse_sort(t_stack **stack, char stack_name)
-{
-	/*
-	 * Сортировка 3 элементов - общий случай
-	 */
-	if (!(*stack))
-		return ;
-
-	if ((((*stack)->value < ((*stack)->down)->value)
-	&& (((*stack)->up)->value < (*stack)->value))
-	|| ((((*stack)->up)->value >= ((*stack)->down)->value)
-	&& (((*stack)->down)->value > (*stack)->value))
-	|| ((((*stack)->up)->value < (*stack)->value)
-	&& (((*stack)->up)->value >= ((*stack)->down)->value)))
-	{
-		ft_swap(*stack, stack_name);
-		//printf("!\n");
-	}
-	if (((*stack)->value < ((*stack)->up)->value)
-	&& (((*stack)->up)->value <= ((*stack)->down)->value))
-		ft_rotate(stack, stack_name);
-	if (((*stack)->value < ((*stack)->up)->value)
-	&& (*stack)->value > ((*stack)->down)->value)
 		ft_reverse_rotate(stack, stack_name);
 }
 
