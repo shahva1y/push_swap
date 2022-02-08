@@ -1,7 +1,14 @@
 #include "../push_swap.h"
 
+static t_stack	*ft_first_greater_element(t_stack *stack, unsigned long long mid)
+{
+	while (stack->value <= mid)
+		stack = stack->down;
+	return (stack);
+}
+
 //поменять название, не освещает в полной мере цель функции
-static void	ft_rotate_stack_to(t_stack **stack_a, t_stack *goal, t_status *status, t_stack **stack_b)
+static void	ft_comeback_to(t_stack **stack_a, t_stack *goal, t_stack **stack_b, t_status *status)
 {
 	if ((goal->up)->index != -1)
 		return ;
@@ -18,7 +25,7 @@ static void	ft_rotate_stack_to(t_stack **stack_a, t_stack *goal, t_status *statu
 	}
 }
 
-static void	ft_return_to_stack_a(t_stack **stack_b, t_stack **stack_a, t_status *status)
+static void	ft_next_sort_iteration(t_stack **stack_b, t_stack **stack_a, t_status *status)
 {
 	if ((*stack_b)->value == status->min)
 	{
@@ -35,12 +42,12 @@ static void	ft_return_to_stack_a(t_stack **stack_b, t_stack **stack_a, t_status 
 	}
 	else if ((status->max - status->min) < 50)
 	{
-		ft_increase_index((*stack_b));
-		ft_index_insert_sort(stack_b, stack_a, 'a');
+		ft_increase_index((*stack_b)); //!
+		ft_insert_sort(stack_b, stack_a, 'a');
 	}
 	else
 	{
-		ft_increase_index((*stack_b));
+		ft_increase_index((*stack_b)); //!
 		ft_push_greater(stack_b, stack_a, status);
 	}
 }
@@ -49,18 +56,15 @@ static void	ft_return_to_stack_a(t_stack **stack_b, t_stack **stack_a, t_status 
 //мб и удачное, изменен лишь механизм возврата из стека B,
 void	ft_quick_sort(t_stack **stack_a, t_stack **stack_b, t_status *status)
 {
-	t_stack *tmp; //возможно лишняя переменная, нет необходимости ее сохранять!
-	//возможно есть другие критерии поиска начала пакета
+	t_stack *great_half_start;
 
-	tmp = ft_push_less(stack_a, stack_b, status);
-	ft_status_update(stack_b, status); // нужно учитывать, что mid значения из стека А в стеке B нет
-	//тут нужно учесть момент возвращения к элементу с которого начали сравние, первый не отправленный в стек В
-	//тут должна быть отдельная функция возвращения обратно, а не цикл
-	// tmp - это начало пакета
-	ft_rotate_stack_to(stack_a, tmp, status, stack_b);
+	great_half_start = ft_first_greater_element(*stack_a, status->mid);
+	ft_push_less(stack_a, stack_b, status);
+	ft_status_update(stack_b, status);
+	ft_comeback_to(stack_a, great_half_start, stack_b, status);
 	while ((*stack_b))
 	{
-		ft_return_to_stack_a(stack_b, stack_a, status);
+		ft_next_sort_iteration(stack_b, stack_a, status); //??? static! поэтому не страшно совпадение имен
 		ft_status_update(stack_b, status);
 	}
 }

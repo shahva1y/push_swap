@@ -45,7 +45,7 @@ t_stack	*ft_last_greater_element(t_stack **stack, t_status *status)
 	return (last_to_push);
 }
 
-t_stack *ft_push_less(t_stack **stack_src, t_stack **stack_dst, t_status *status)
+void	ft_push_less(t_stack **stack_src, t_stack **stack_dst, t_status *status)
 {
 	t_stack	*tmp;
 	t_stack *last_to_push;
@@ -66,7 +66,6 @@ t_stack *ft_push_less(t_stack **stack_src, t_stack **stack_dst, t_status *status
 	}
 	if (last_to_push)
 		ft_push(stack_src, stack_dst, 'b');
-	return (tmp);
 }
 
 void ft_push_greater(t_stack **stack_src, t_stack **stack_dst, t_status *status)
@@ -76,7 +75,7 @@ void ft_push_greater(t_stack **stack_src, t_stack **stack_dst, t_status *status)
 
 	while ((*stack_src)->value > status->mid)
 		ft_push(stack_src, stack_dst, 'a');
-	tmp = *stack_src;
+	tmp = (*stack_src);
 	last_to_push = ft_last_greater_element(stack_src, status);
 	if ((*stack_src) != (*stack_src)->down && last_to_push)
 		ft_rotate(stack_src, 'b');

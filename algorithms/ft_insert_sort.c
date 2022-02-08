@@ -58,7 +58,7 @@ static t_stack	*ft_get_next_element(t_stack **src, unsigned long long length, t_
 	return (next);
 }
 
-void	ft_index_insert_sort(t_stack **src, t_stack **dst, char stack_name)
+void	ft_insert_sort(t_stack **src, t_stack **dst, char stack_name)
 {
 	unsigned long long length;
 	t_stack *next;

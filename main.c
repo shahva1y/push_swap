@@ -34,7 +34,7 @@ static char	***ft_collect_arguments(int argc, char **argv)
 
 	arguments = malloc(sizeof(char **) * (argc));
 	if (!arguments)
-		ft_error("Error\n");
+		ft_error("Malloc error!\n");
 	arguments[argc - 1] = NULL;
 	i = 0;
 	while (i < argc - 1)
@@ -90,9 +90,6 @@ int	main(int argc, char **argv)
 	if (argc > 1)
 	{
 		arguments = ft_collect_arguments(argc, argv);
-		//
-		if (!arguments)
-			ft_error("Error\n");
 		length = ft_get_arguments_count(arguments);
 		stack = malloc(sizeof(unsigned int) * (length));
 		if (!stack)

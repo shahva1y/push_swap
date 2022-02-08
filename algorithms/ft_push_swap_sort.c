@@ -17,7 +17,7 @@ void	ft_increase_index(t_stack *stack)
 	}
 }
 
-static void	ft_rotate_to_next_pack(t_stack **stack)
+static void	ft_rotate_to_next_pack(t_stack **stack) //ft_rotate_sorted_part()
 {
 	t_stack	*tmp;
 
@@ -68,7 +68,7 @@ static int	ft_is_sorted(t_stack *stack)
 	return (0);
 }
 
-static void	ft_next_iteration(t_stack **stack_a, t_stack **stack_b, t_status *status)
+static void	ft_next_sort_iteration(t_stack **stack_a, t_stack **stack_b, t_status *status)
 {
 	ft_rotate_to_next_pack(stack_a);
 	ft_status_update(stack_a, status);
@@ -98,15 +98,24 @@ void ft_push_swap_sort(unsigned int *stack, unsigned long long length)
     stack_b = NULL;
     stack_a = create_stack(stack, length);
 	status = (t_status *)malloc(sizeof(t_status));
-	if (!status)
+	if (!status || !stack_a)
 		exit (0);
 	status->min = 0;
 	status->max = length - 1;
 	//написать функцию проверки на отсортированность!
-	while (!ft_is_sorted(stack_a))
-		ft_next_iteration(&stack_a, &stack_b, status); //переименовать функцию
+	//ft_is_sorted???();
+	//+скобки возможно лишние у if!
+	if (length > 6)
+	{
+		while (!ft_is_sorted(stack_a))
+			ft_next_sort_iteration(&stack_a, &stack_b, status); //переименовать функцию
+	}
+	else if (length < 4)
+		ft_simple_sort(&stack_a);
+	else
+		ft_merge_sort(&stack_a, &stack_b, status);
+	// нужен ли этот цикл?
 	while (stack_a->value != 0)
 		ft_rotate(&stack_a, 'a');
 }
 
-//ft_is_sorted();
