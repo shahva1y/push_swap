@@ -1,12 +1,6 @@
 #include "push_swap.h"
 #include "./libft/libft.h"
 
-static void	ft_error(char *error_messege)
-{
-	write(2, error_messege, ft_strlen(error_messege));
-	exit(1);
-}
-
 static unsigned long long	ft_get_arguments_count(char ***arguments)
 {
 	int	i;
@@ -41,11 +35,8 @@ static char	***ft_collect_arguments(int argc, char **argv)
 	{
 		j = 0;
 		arguments[i] = (char **)ft_split(argv[i + 1], ' ');
-		//
 		if (!arguments[i])
-			ft_error("Error\n");
-		while (arguments[i][j])
-			j++;
+			ft_error("Memory allocation error!\n");
 		i++;
 	}
 	return (arguments);
@@ -61,9 +52,8 @@ static int	*ft_to_int(unsigned long long count, char ***arguments)
 	i = 0;
 	k = 0;
 	tmp = malloc(sizeof(int) * (count));
-	//
 	if (!tmp)
-		ft_error("Error\n");
+		ft_error("Memory allocation error!\n");
 	while (arguments[i])
 	{
 		j = 0;
@@ -93,12 +83,11 @@ int	main(int argc, char **argv)
 		length = ft_get_arguments_count(arguments);
 		stack = malloc(sizeof(unsigned int) * (length));
 		if (!stack)
-			ft_error("Error\n");
+			ft_error("Memory allocation error!\n");
 		tmp = ft_to_int(length, arguments);
 		if (ft_duplicate_exist(tmp, length))
 			ft_error("Error\n");
 		ft_index(tmp, stack, length);
-		//ft_stack_create();
 		ft_push_swap_sort(stack, length);
 	}
 	return (0);

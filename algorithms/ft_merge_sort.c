@@ -2,8 +2,8 @@
 
 static void	ft_split_stack(t_stack **stack_a, t_stack **stack_b, t_status *status)
 {
-	int	i;
-	int	count;
+	int					i;
+	unsigned long long	count;
 
 	i = 0;
 	count = (status->max - status->min) / 2;
@@ -82,7 +82,6 @@ static void	ft_merge_stacks(t_stack **stack_a, t_stack **stack_b)
  * Это усложнило бы код в разы.
  */
 
-//дописать для 6 элементов! А контроль количества до 4 элементав будет снаружи, внутри будет до 6 включительно
 void	ft_merge_sort(t_stack **stack_a, t_stack **stack_b, t_status *status)
 {
 	ft_split_stack(stack_a, stack_b, status);

@@ -3,7 +3,7 @@
 void	ft_simple_sort(t_stack **stack)
 {
 	if (((((*stack)->up)->value < ((*stack)->down)->value)
-		 && ((*stack)->value < ((*stack)->up)->value))
+			&& ((*stack)->value < ((*stack)->up)->value))
 		|| (((*stack)->value > ((*stack)->down)->value)
 			&& (((*stack)->up)->value <= ((*stack)->down)->value))
 		|| ((((*stack)->up)->value > (*stack)->value)

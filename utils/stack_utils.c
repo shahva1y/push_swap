@@ -12,12 +12,7 @@ t_stack *create_stack(unsigned int *array, unsigned int length)
 	{
 		element = (t_stack *)malloc(sizeof(t_stack));
 		if (!element)
-		{
-			//ft_free(array);
-			//или exit(0);
-			//функция очистки списка
-			return (NULL);
-		}
+			ft_error("Memory allocation error!\n");
 		if (stack)
         {
             element->up = stack->up;

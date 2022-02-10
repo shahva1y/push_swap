@@ -12,6 +12,8 @@ static void	ft_comeback_to(t_stack **stack_a, t_stack *goal, t_stack **stack_b, 
 {
 	if ((goal->up)->index != -1)
 		return ;
+	//Функция поиска min
+	//Тут необходимо написать функцию оценки, альтернативных путей - в обратную сторону
 	while ((*stack_a) != goal && (*stack_b)->value != status->min)
 		ft_both_reverse_rotate(stack_a, stack_b);
 	while ((*stack_a) != goal)

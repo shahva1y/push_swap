@@ -39,6 +39,10 @@ void	ft_status_update(t_stack **stack, t_status *status)
 	tmp = (*stack);
 	status->max = (*stack)->value;
 	status->min = (*stack)->value;
+	/*
+	if ((*stack)->index == -1)
+		return ;
+	*/
 	if (tmp != tmp->down)
 		tmp = tmp->down;
 	while (tmp->index == (*stack)->index && tmp != (*stack))
@@ -50,22 +54,6 @@ void	ft_status_update(t_stack **stack, t_status *status)
 		tmp = tmp->down;
 	}
 	status->mid = (status->max + status->min) / 2;
-}
-
-static int	ft_is_sorted(t_stack *stack)
-{
-	t_stack	*tmp;
-
-	tmp = stack;
-	if (tmp->index != -1)
-		return (0);
-	if (tmp != tmp->down)
-		tmp = tmp->down;
-	while (tmp->index == -1 && tmp != stack)
-		tmp = tmp->down;
-	if (tmp == stack)
-		return (1);
-	return (0);
 }
 
 static void	ft_next_sort_iteration(t_stack **stack_a, t_stack **stack_b, t_status *status)
@@ -91,9 +79,6 @@ void ft_push_swap_sort(unsigned int *stack, unsigned long long length)
     t_stack				*stack_b;
 	t_status			*status;
 
-	//создание стек лучше передать либо main, либо другой функции
-    //stack_a, stack_b, status - можно рассматривать как одну сущность! этот набор часто передается между функциями
-
 	stack_a = NULL;
     stack_b = NULL;
     stack_a = create_stack(stack, length);
@@ -102,19 +87,22 @@ void ft_push_swap_sort(unsigned int *stack, unsigned long long length)
 		exit (0);
 	status->min = 0;
 	status->max = length - 1;
-	//написать функцию проверки на отсортированность!
-	//ft_is_sorted???();
 	//+скобки возможно лишние у if!
-	if (length > 6)
+	if (!ft_is_sorted(stack_a))
 	{
-		while (!ft_is_sorted(stack_a))
-			ft_next_sort_iteration(&stack_a, &stack_b, status); //переименовать функцию
+		//push_swap!
+		//создание стек лучше передать либо main, либо другой функции
+		//stack_a, stack_b, status - можно рассматривать как одну сущность! этот набор часто передается между функциями
+		if (length > 6)
+		{
+			while (!ft_is_sorted(stack_a))
+				ft_next_sort_iteration(&stack_a, &stack_b, status); //переименовать функцию
+		}
+		else if (length < 4)
+			ft_simple_sort(&stack_a);
+		else
+			ft_merge_sort(&stack_a, &stack_b, status);
 	}
-	else if (length < 4)
-		ft_simple_sort(&stack_a);
-	else
-		ft_merge_sort(&stack_a, &stack_b, status);
-	// нужен ли этот цикл?
 	while (stack_a->value != 0)
 		ft_rotate(&stack_a, 'a');
 }
