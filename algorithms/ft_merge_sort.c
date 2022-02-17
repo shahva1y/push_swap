@@ -1,6 +1,7 @@
 #include "../push_swap.h"
 
-static void	ft_split_stack(t_stack **stack_a, t_stack **stack_b, t_status *status)
+static void	ft_split_stack(t_stack **stack_a, t_stack **stack_b,
+							t_status *status)
 {
 	int					i;
 	unsigned long long	count;
@@ -27,7 +28,7 @@ static void	ft_sort_stacks(t_stack **stack_a, t_stack **stack_b)
 		ft_swap(*stack_b, 'b');
 }
 
-static void ft_simple_sort_plus(t_stack **stack_a, t_stack **stack_b)
+static void	ft_simple_sort_plus(t_stack **stack_a, t_stack **stack_b)
 {
 	if (ft_is_swap(stack_a) && ft_is_swap(stack_b))
 		ft_both_swap(stack_a, stack_b);
@@ -53,7 +54,7 @@ static void	ft_merge_stacks(t_stack **stack_a, t_stack **stack_b)
 {
 	unsigned long long	index;
 
-	index = (*stack_a)->index; //возможно, нужно это добавить в переменную status
+	index = (*stack_a)->index;
 	while ((*stack_b) && (*stack_a)->index == index)
 	{
 		if ((*stack_b)->value < (*stack_a)->value)
@@ -88,8 +89,6 @@ void	ft_merge_sort(t_stack **stack_a, t_stack **stack_b, t_status *status)
 	if ((status->max - status->min) < 4)
 		ft_sort_stacks(stack_a, stack_b);
 	else
-		ft_simple_sort_plus(stack_a, stack_b);;
+		ft_simple_sort_plus(stack_a, stack_b);
 	ft_merge_stacks(stack_a, stack_b);
 }
-
-

@@ -1,14 +1,13 @@
 #include "../push_swap.h"
 
-static void	ft_rotate_stacks_to_push(t_stack **src, t_stack **dst, t_stack *element)
+static void	ft_rotate_stacks_to_push(t_stack **src, t_stack **dst,
+										t_stack *element)
 {
 	if (!(*src) || !element)
 		return ;
-	if (ft_rotate_count_to_find(element, *src) > ft_get_stack_length(*src) / 2)
+	if (ft_rotate_direction((*src), element) == -1)
 	{
-		while ((*src) != element
-			&& element->value < (*dst)->value && element->value < ((*dst)->up)->value
-			&& ((*dst)->up)->index == element->index && (*dst)->index == element->index)
+		while ((*src) != element && ft_is_rrotate_dst(element, (*dst)))
 			ft_both_reverse_rotate(src, dst);
 		while ((*src) != element)
 			ft_reverse_rotate(src, 'b');
@@ -16,26 +15,25 @@ static void	ft_rotate_stacks_to_push(t_stack **src, t_stack **dst, t_stack *elem
 	else
 	{
 		while ((*src) != element
-			   && element->value > (*dst)->value && (*dst)->index == element->index)
+			&& ft_is_rotate_dst(element, (*dst)))
 			ft_both_rotate(src, dst);
 		while ((*src) != element)
 			ft_rotate(src, 'b');
 	}
-	while (element->value > (*dst)->value
-		   && (*dst)->index == element->index)
+	while (ft_is_rotate_dst(element, (*dst)))
 		ft_rotate(dst, 'a');
-	while (element->value < (*dst)->value && element->value < ((*dst)->up)->value
-		   && ((*dst)->up)->index == element->index && (*dst)->index == element->index)
+	while (ft_is_rrotate_dst(element, (*dst)))
 		ft_reverse_rotate(dst, 'a');
 }
 
-static t_stack	*ft_get_next_element(t_stack **src, unsigned long long length, t_stack **dst)
+static t_stack	*ft_get_next_element(t_stack **src, unsigned long long length,
+										t_stack **dst)
 {
-	t_stack *tmp;
-	t_stack *next;
-	unsigned long long steps;
-	unsigned long long steps_src;
-	unsigned long long steps_min;
+	t_stack				*tmp;
+	t_stack				*next;
+	unsigned long long	steps;
+	unsigned long long	steps_src;
+	unsigned long long	steps_min;
 
 	steps_min = ft_rotate_count_to_insert(*src, *dst);
 	next = (*src);
@@ -60,19 +58,17 @@ static t_stack	*ft_get_next_element(t_stack **src, unsigned long long length, t_
 
 void	ft_insert_sort(t_stack **src, t_stack **dst, char stack_name)
 {
-	unsigned long long length;
-	t_stack *next;
+	unsigned long long	length;
+	t_stack				*next;
 
 	if (!(*src))
 		return ;
-	//попробуй вынести выше
-	ft_increase_index(*src); //обязательная часть при внедрении в основную программу, вынес выше
 	ft_push(src, dst, stack_name);
 	length = ft_get_stack_length(*src);
 	while (*src)
 	{
 		next = ft_get_next_element(src, length, dst);
-		ft_rotate_stacks_to_push(src, dst, next); //этот элемент push
+		ft_rotate_stacks_to_push(src, dst, next);
 		ft_push(src, dst, 'a');
 		length--;
 	}

@@ -26,7 +26,7 @@ int	ft_duplicate_exist(int *tmp, unsigned int length)
 	return (0);
 }
 
-void	ft_index(int *tmp, unsigned int *stack, unsigned int length)
+void	ft_index(int **tmp, unsigned int *stack, unsigned int length)
 {
 	int				i;
 	int				j;
@@ -39,26 +39,23 @@ void	ft_index(int *tmp, unsigned int *stack, unsigned int length)
 		j = 0;
 		while (j < length)
 		{
-			if (tmp[j] < tmp[i])
+			if ((*tmp)[j] < (*tmp)[i])
 				value++;
 			j++;
 		}
 		stack[i] = value;
 		i++;
 	}
-	free(tmp);
+	free((*tmp));
+	(*tmp) = NULL;
 }
 
 int	ft_is_representable(char *str)
 {
 	int				i;
 	unsigned int	length;
-	char			*int_max;
-	char			*int_min;
 
 	i = 0;
-	int_max = "2147483647";
-	int_min = "-2147483648";
 	if (str[i] == '-')
 		i++;
 	while (str[i] != '\0')
@@ -67,19 +64,15 @@ int	ft_is_representable(char *str)
 			return (0);
 		i++;
 	}
-	if (str[0] == '-' && i == 1 || str[0] == '+' && i == 1)
+	if (str[0] == '-' && i == 1)
 		return (0);
 	length = ft_strlen(str);
-	//так же нужно учесть знак '+'
-	if ((length > 10 && str[0] != '-')
-		|| (length > 11 && str[0] == '-'))
+	if ((length > 10 && str[0] != '-') || (length > 11 && str[0] == '-'))
 		return (0);
-	if ((length < 10 && str[0] != '-')
-		|| (length < 11 && str[0] == '-'))
+	if ((length < 10 && str[0] != '-') || (length < 11 && str[0] == '-'))
 		return (1);
-	//не учел ввода +2147483647
-	if ((str[0] != '-' && ft_strncmp(str, int_max, 10) > 0)
-		|| (str[0] == '-' && ft_strncmp(str, int_min, 11) > 0))
+	if ((str[0] != '-' && ft_strncmp(str, "2147483647", 10) > 0)
+		|| (str[0] == '-' && ft_strncmp(str, "-2147483648", 11) > 0))
 		return (0);
 	return (1);
 }

@@ -1,18 +1,23 @@
 #include "../push_swap.h"
 
-unsigned long long	ft_rotate_count_to_find(t_stack *element, t_stack *stack)
+int	ft_is_rotate_dst(t_stack *element, t_stack *dst)
 {
-	t_stack	*tmp;
-	unsigned long long	count;
+	int	result;
 
-	tmp = stack;
-	count = 0;
-	while (tmp != element)
-	{
-		count++;
-		tmp = tmp->down;
-	}
-	return (count);
+	result = ((element->value > dst->value)
+			&& (dst->index == element->index));
+	return (result);
+}
+
+int	ft_is_rrotate_dst(t_stack *element, t_stack *dst)
+{
+	int	result;
+
+	result = ((element->value < dst->value)
+			&& (element->value < (dst->up)->value)
+			&& ((dst->up)->index == element->index)
+			&& (dst->index == element->index));
+	return (result);
 }
 
 unsigned long long	ft_rotate_count_to_insert(t_stack *element, t_stack *stack)
@@ -25,7 +30,9 @@ unsigned long long	ft_rotate_count_to_insert(t_stack *element, t_stack *stack)
 		count++;
 		stack = stack->down;
 	}
-	while (element->value < stack->value && (stack->up)->index == element->index && stack->index == element->index)
+	while (element->value < stack->value
+		&& (stack->up)->index == element->index
+		&& stack->index == element->index)
 	{
 		count++;
 		stack = stack->up;
@@ -33,7 +40,7 @@ unsigned long long	ft_rotate_count_to_insert(t_stack *element, t_stack *stack)
 	return (count);
 }
 
-void ft_change_elements_index(t_stack *stack) //sorted_index???
+void	ft_change_elements_index(t_stack *stack)
 {
 	t_stack				*tmp;
 	unsigned long long	index;
@@ -44,7 +51,7 @@ void ft_change_elements_index(t_stack *stack) //sorted_index???
 		tmp = tmp->up;
 	while (tmp->index == index)
 	{
-		tmp->index  = -1;
+		tmp->index = -1;
 		tmp = tmp->down;
 	}
 }

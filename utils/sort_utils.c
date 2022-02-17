@@ -2,7 +2,7 @@
 
 int	ft_is_sorted(t_stack *stack)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
 
 	tmp = stack;
 	while (tmp->value != 0)
@@ -14,6 +14,3 @@ int	ft_is_sorted(t_stack *stack)
 		return (0);
 	return (1);
 }
-
-
-

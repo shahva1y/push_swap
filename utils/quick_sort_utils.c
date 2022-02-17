@@ -25,12 +25,11 @@ t_stack	*ft_last_less_element(t_stack **stack, t_status *status)
 t_stack	*ft_last_greater_element(t_stack **stack, t_status *status)
 {
 	t_stack	*tmp;
-	t_stack *last_to_push;
+	t_stack	*last_to_push;
 
 	if ((*stack) == NULL)
 		return (NULL);
 	tmp = (*stack);
-	//последний элемент на push
 	last_to_push = NULL;
 	if ((*stack)->value > status->mid)
 		last_to_push = (*stack);
@@ -48,16 +47,17 @@ t_stack	*ft_last_greater_element(t_stack **stack, t_status *status)
 void	ft_push_less(t_stack **stack_src, t_stack **stack_dst, t_status *status)
 {
 	t_stack	*tmp;
-	t_stack *last_to_push;
+	t_stack	*last_to_push;
 
 	while ((*stack_src)->value <= status->mid)
 		ft_push(stack_src, stack_dst, 'b');
 	tmp = (*stack_src);
 	last_to_push = ft_last_less_element(stack_src, status);
-	//не всегда обязательно!
-	if ((*stack_src) != (*stack_src)->down && (*stack_src)->index == ((*stack_src)->down)->index && last_to_push)
+	if ((*stack_src) != (*stack_src)->down
+		&& (*stack_src)->index == ((*stack_src)->down)->index && last_to_push)
 		ft_rotate(stack_src, 'a');
-	while ((*stack_src) != tmp && (*stack_src)->index == tmp->index && last_to_push && (*stack_src) != last_to_push)
+	while ((*stack_src) != tmp && (*stack_src)->index == tmp->index
+		&& last_to_push && (*stack_src) != last_to_push)
 	{
 		if ((*stack_src)->value <= status->mid)
 			ft_push(stack_src, stack_dst, 'b');
@@ -68,10 +68,11 @@ void	ft_push_less(t_stack **stack_src, t_stack **stack_dst, t_status *status)
 		ft_push(stack_src, stack_dst, 'b');
 }
 
-void ft_push_greater(t_stack **stack_src, t_stack **stack_dst, t_status *status)
+void	ft_push_greater(t_stack **stack_src, t_stack **stack_dst,
+						t_status *status)
 {
 	t_stack	*tmp;
-	t_stack *last_to_push;
+	t_stack	*last_to_push;
 
 	while ((*stack_src)->value > status->mid)
 		ft_push(stack_src, stack_dst, 'a');

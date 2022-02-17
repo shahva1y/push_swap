@@ -1,5 +1,4 @@
 #include "push_swap.h"
-#include "./libft/libft.h"
 
 static unsigned long long	ft_get_arguments_count(char ***arguments)
 {
@@ -22,9 +21,8 @@ static unsigned long long	ft_get_arguments_count(char ***arguments)
 
 static char	***ft_collect_arguments(int argc, char **argv)
 {
-	char	***arguments;
-	int		i;
-	int		j;
+	char			***arguments;
+	unsigned int	i;
 
 	arguments = malloc(sizeof(char **) * (argc));
 	if (!arguments)
@@ -33,7 +31,6 @@ static char	***ft_collect_arguments(int argc, char **argv)
 	i = 0;
 	while (i < argc - 1)
 	{
-		j = 0;
 		arguments[i] = (char **)ft_split(argv[i + 1], ' ');
 		if (!arguments[i])
 			ft_error("Memory allocation error!\n");
@@ -67,6 +64,7 @@ static int	*ft_to_int(unsigned long long count, char ***arguments)
 		}
 		i++;
 	}
+	ft_free_arguments(&arguments);
 	return (tmp);
 }
 
@@ -87,7 +85,7 @@ int	main(int argc, char **argv)
 		tmp = ft_to_int(length, arguments);
 		if (ft_duplicate_exist(tmp, length))
 			ft_error("Error\n");
-		ft_index(tmp, stack, length);
+		ft_index(&tmp, stack, length);
 		ft_push_swap_sort(stack, length);
 	}
 	return (0);
