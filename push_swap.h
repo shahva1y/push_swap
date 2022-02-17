@@ -10,7 +10,7 @@ typedef struct s_stack
 	unsigned int		value;
 	struct s_stack		*up;
 	struct s_stack		*down;
-	unsigned long long	index;
+	long long			index;
 }				t_stack;
 
 typedef struct s_status
@@ -24,6 +24,10 @@ void				ft_push_swap_sort(unsigned int *stack_a,
 						unsigned long long length);
 
 int					ft_is_representable(char *str);
+
+unsigned long long	ft_get_arguments_count(char ***arguments);
+char				***ft_collect_arguments(int argc, char **argv);
+int					*ft_to_int(unsigned long long count, char ***arguments);
 
 t_stack				*create_stack(unsigned int *stack_a, unsigned int length);
 int					ft_is_sorted(t_stack *stack);

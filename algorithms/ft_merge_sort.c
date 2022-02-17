@@ -3,7 +3,7 @@
 static void	ft_split_stack(t_stack **stack_a, t_stack **stack_b,
 							t_status *status)
 {
-	int					i;
+	unsigned long long	i;
 	unsigned long long	count;
 
 	i = 0;
@@ -52,7 +52,7 @@ static void	ft_simple_sort_plus(t_stack **stack_a, t_stack **stack_b)
 
 static void	ft_merge_stacks(t_stack **stack_a, t_stack **stack_b)
 {
-	unsigned long long	index;
+	long long	index;
 
 	index = (*stack_a)->index;
 	while ((*stack_b) && (*stack_a)->index == index)

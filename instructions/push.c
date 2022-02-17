@@ -1,6 +1,6 @@
 #include "../push_swap.h"
 
-static void	ft_cut_element(t_stack **src, t_stack **dst)
+static void	ft_cut_element(t_stack **src)
 {
 	t_stack	*element;
 
@@ -39,7 +39,7 @@ void	ft_push(t_stack **src, t_stack **dst, char dst_name)
 	if (!src)
 		return ;
 	element = (*src);
-	ft_cut_element(src, dst);
+	ft_cut_element(src);
 	ft_paste_element(dst, element);
 	write(1, "p", 1);
 	write(1, &dst_name, 1);

@@ -42,8 +42,8 @@ unsigned long long	ft_rotate_count_to_insert(t_stack *element, t_stack *stack)
 
 void	ft_change_elements_index(t_stack *stack)
 {
-	t_stack				*tmp;
-	unsigned long long	index;
+	t_stack		*tmp;
+	long long	index;
 
 	tmp = stack;
 	index = stack->index;

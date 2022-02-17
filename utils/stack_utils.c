@@ -31,9 +31,9 @@ static void	ft_add_element_to_stack(t_stack **stack, t_stack *element)
 
 t_stack	*create_stack(unsigned int *array, unsigned int length)
 {
-	int		i;
-	t_stack	*stack;
-	t_stack	*element;
+	unsigned int	i;
+	t_stack			*stack;
+	t_stack			*element;
 
 	i = 0;
 	stack = NULL;
