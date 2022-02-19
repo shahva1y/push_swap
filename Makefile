@@ -23,7 +23,19 @@ SRCS =	main.c\
 		utils/stack_utils.c\
 		utils/free_utils.c\
 
-SRCS_BONUS = bonus/main.c
+SRCS_BONUS =	bonus/checker.c\
+				\
+				bonus/ft_execute_commands.c\
+				\
+				utils/valid_utils.c\
+				utils/parse_utils.c\
+				utils/stack_utils.c\
+				utils/free_utils.c\
+				utils/sort_utils.c\
+				\
+				bonus/instructions/push.c\
+                bonus/instructions/swap.c\
+                bonus/instructions/rotate.c\
 
 LIB = libft.a
 LIB_SRC = ./libft
@@ -31,7 +43,7 @@ LIB_SRC = ./libft
 OBJS = $(SRCS:%.c=%.o)
 OBJS_BONUS = $(SRCS_BONUS:%.c=%.o)
 HEADER = push_swap.h
-HEADER_BONUS = bonus.h
+HEADER_BONUS = ./bonus/bonus.h
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I$(HEADER)
@@ -52,6 +64,7 @@ $(LIB)	:
 clean	:
 	$(MAKE) clean -C $(LIB_SRC)
 	rm -f $(OBJS)
+	rm -f $(OBJS_BONUS)
 
 fclean	: clean
 	$(MAKE) fclean -C $(LIB_SRC)
@@ -59,7 +72,6 @@ fclean	: clean
 	rm -f $(NAME_BONUS)
 
 bonus	:
-	rm -f $(OBJS)
-	make SRCS='$(SRCS_BONUS)' HEADER='$(HEADER_BONUS)' all
+	make NAME='$(NAME_BONUS)' SRCS='$(SRCS_BONUS)' HEADER='$(HEADER_BONUS)' all
 
 re		: fclean all
