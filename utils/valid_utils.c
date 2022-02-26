@@ -12,12 +12,6 @@
 
 #include "../push_swap.h"
 
-void	ft_error(char *error_messege)
-{
-	write(2, error_messege, ft_strlen(error_messege));
-	exit(1);
-}
-
 int	ft_duplicate_exist(int *tmp, unsigned int length)
 {
 	unsigned int	i;

@@ -86,25 +86,18 @@ static void	ft_next_sort_iteration(t_stack **stack_a, t_stack **stack_b,
 		ft_merge_sort(stack_a, stack_b, status);
 }
 
-/* push_swap!
- * создание стек лучше передать либо main, либо другой функции
- * stack_a, stack_b, status - можно рассматривать как одну сущность!
- * этот набор часто передается между функциями
- * 	//+скобки возможно лишние у if!
-*/
-
-void	ft_push_swap_sort(unsigned int *stack, unsigned long long length)
+void	ft_push_swap_sort(t_stack *stack_a, t_stack *stack_b)
 {
-	t_stack		*stack_a;
-	t_stack		*stack_b;
-	t_status	*status;
+	unsigned long long	length;
+	t_status			*status;
 
-	stack_a = NULL;
-	stack_b = NULL;
-	stack_a = create_stack(stack, length);
+	length = ft_get_stack_length(stack_a);
 	status = (t_status *)malloc(sizeof(t_status));
-	if (!status || !stack_a)
-		exit (0);
+	if (!status)
+	{
+		ft_free_stack(&stack_a);
+		ft_error("Memmory allocation error!");
+	}
 	status->min = 0;
 	status->max = length - 1;
 	if (!ft_is_sorted(stack_a))
@@ -119,5 +112,5 @@ void	ft_push_swap_sort(unsigned int *stack, unsigned long long length)
 	}
 	while (stack_a->value != 0)
 		ft_rotate(&stack_a, 'a');
-	ft_free_stack_and_status(&stack_a, &status);
+	free(status);
 }

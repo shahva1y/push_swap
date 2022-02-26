@@ -36,16 +36,23 @@ char	***ft_collect_arguments(int argc, char **argv)
 	char			***arguments;
 	int				i;
 
-	arguments = malloc(sizeof(char **) * (argc));
+	arguments = (char ***)ft_calloc(argc, sizeof(char **));
 	if (!arguments)
 		ft_error("Malloc error!\n");
-	arguments[argc - 1] = NULL;
 	i = 0;
 	while (i < argc - 1)
 	{
-		arguments[i] = (char **)ft_split(argv[i + 1], ' ');
-		if (!arguments[i])
+		arguments[i] = ft_split(argv[i + 1], ' ');
+		if (!(arguments[i]))
+		{
+			ft_free_arguments(&arguments);
 			ft_error("Memory allocation error!\n");
+		}
+		if (!(arguments[i][0]))
+		{
+			ft_free_arguments(&arguments);
+			ft_error("Error\n");
+		}
 		i++;
 	}
 	return (arguments);
@@ -62,20 +69,47 @@ int	*ft_to_int(unsigned long long count, char ***arguments)
 	k = 0;
 	tmp = malloc(sizeof(int) * (count));
 	if (!tmp)
-		ft_error("Memory allocation error!\n");
+		return (NULL);
 	while (arguments[i])
 	{
 		j = 0;
 		while (arguments[i][j])
 		{
 			if (!ft_is_representable(arguments[i][j]))
-				ft_error("Error\n");
+				ft_error_arguments(&arguments, &tmp);
 			tmp[k] = ft_atoi(arguments[i][j]);
 			k++;
 			j++;
 		}
 		i++;
 	}
-	ft_free_arguments(&arguments);
 	return (tmp);
+}
+
+t_stack	*ft_parse_arguments(int argc, char **argv)
+{
+	char				***arguments;
+	unsigned int		*stack;
+	int					*tmp;
+	unsigned long long	length;
+
+	arguments = ft_collect_arguments(argc, argv);
+	length = ft_get_arguments_count(arguments);
+	stack = malloc(sizeof(unsigned int) * (length));
+	if (!stack)
+	{
+		ft_free_arguments(&arguments);
+		ft_error("Memory allocation error!\n");
+	}
+	tmp = ft_to_int(length, arguments);
+	if (!tmp)
+	{
+		ft_free_arguments(&arguments);
+		ft_error("Memory allocation error!\n");
+	}
+	if (ft_duplicate_exist(tmp, length))
+		ft_error_arguments(&arguments, &tmp);
+	ft_free_arguments(&arguments);
+	ft_index(&tmp, stack, length);
+	return (create_stack(stack, length));
 }

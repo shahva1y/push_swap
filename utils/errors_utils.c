@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   errors_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: krulindi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/15 14:32:54 by krulindi          #+#    #+#             */
-/*   Updated: 2021/10/15 14:34:17 by krulindi         ###   ########.fr       */
+/*   Created: 2022/02/24 19:30:01 by krulindi          #+#    #+#             */
+/*   Updated: 2022/02/24 19:30:07 by krulindi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../push_swap.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	ft_error(char *error_messege)
 {
-	char	*p;
-	size_t	i;
+	write(2, error_messege, ft_strlen(error_messege));
+	exit(1);
+}
 
-	i = 0;
-	p = (char *)malloc(size * count);
-	if (p == NULL)
-		return (NULL);
-	while (i < size * count)
-	{
-		p[i] = '\0';
-		i++;
-	}
-	return ((void *)p);
+void	ft_error_arguments(char ****arguments, int **tmp)
+{
+	ft_free_arguments(arguments);
+	free(*tmp);
+	ft_error("Error\n");
 }

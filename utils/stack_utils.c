@@ -18,7 +18,7 @@ static t_stack	*ft_create_element(unsigned int value)
 
 	element = (t_stack *)malloc(sizeof(t_stack));
 	if (!element)
-		ft_error("Memory allocation error!\n");
+		return (NULL);
 	element->index = 0;
 	element->value = value;
 	return (element);
@@ -52,6 +52,12 @@ t_stack	*create_stack(unsigned int *array, unsigned int length)
 	while (i < length)
 	{
 		element = ft_create_element(array[i]);
+		if (!element)
+		{
+			free(array);
+			ft_free_stack(&stack);
+			ft_error("Memmory allocation error!");
+		}
 		ft_add_element_to_stack(&stack, element);
 		i++;
 	}

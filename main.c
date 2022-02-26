@@ -14,23 +14,17 @@
 
 int	main(int argc, char **argv)
 {
-	char				***arguments;
-	unsigned int		*stack;
-	int					*tmp;
-	unsigned long long	length;
+	t_stack		*stack_a;
+	t_stack		*stack_b;
 
+	stack_a = NULL;
+	stack_b = NULL;
 	if (argc > 1)
 	{
-		arguments = ft_collect_arguments(argc, argv);
-		length = ft_get_arguments_count(arguments);
-		stack = malloc(sizeof(unsigned int) * (length));
-		if (!stack)
-			ft_error("Memory allocation error!\n");
-		tmp = ft_to_int(length, arguments);
-		if (ft_duplicate_exist(tmp, length))
-			ft_error("Error\n");
-		ft_index(&tmp, stack, length);
-		ft_push_swap_sort(stack, length);
+		stack_a = ft_parse_arguments(argc, argv);
+		ft_push_swap_sort(stack_a, stack_b);
+		ft_free_stack(&stack_a);
+		ft_free_stack(&stack_b);
 	}
 	return (0);
 }

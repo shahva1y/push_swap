@@ -22,6 +22,7 @@ SRCS =	main.c\
 		utils/insert_sort_utils.c\
 		utils/stack_utils.c\
 		utils/free_utils.c\
+		utils/errors_utils.c\
 
 SRCS_BONUS =	bonus/checker.c\
 				\
@@ -32,6 +33,7 @@ SRCS_BONUS =	bonus/checker.c\
 				utils/stack_utils.c\
 				utils/free_utils.c\
 				utils/sort_utils.c\
+				utils/errors_utils.c\
 				\
 				bonus/instructions/push.c\
                 bonus/instructions/swap.c\

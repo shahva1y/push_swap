@@ -17,7 +17,7 @@ static void	ft_clear_buffer(char *buffer)
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 5)
 	{
 		buffer[i] = '\0';
 		i++;
@@ -98,13 +98,20 @@ void	ft_execute_commands(t_stack **stack_a, t_stack **stack_b)
 
 	command = (char *) malloc(5);
 	if (!command)
-		ft_error("Memory allocation error!\n");
-	command[4] = '\0';
+	{
+		ft_free_stack(stack_a);
+		ft_error("Memmory allocation error!");
+	}
 	ft_clear_buffer(command);
 	while (ft_read_line(command))
 	{
 		if (!ft_isvalid(command))
+		{
+			free(command);
+			ft_free_stack(stack_a);
+			ft_free_stack(stack_b);
 			ft_error("Error\n");
+		}
 		ft_execute_command(command, stack_a, stack_b);
 		ft_clear_buffer(command);
 	}

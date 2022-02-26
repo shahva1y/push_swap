@@ -32,10 +32,11 @@ typedef struct s_status
 	unsigned long long	min;
 }				t_status;
 
-void				ft_push_swap_sort(unsigned int *stack_a,
-						unsigned long long length);
+void				ft_push_swap_sort(t_stack *stack_a, t_stack *stack_b);
 
 int					ft_is_representable(char *str);
+
+t_stack				*ft_parse_arguments(int argc, char **argv);
 
 unsigned long long	ft_get_arguments_count(char ***arguments);
 char				***ft_collect_arguments(int argc, char **argv);
@@ -45,9 +46,13 @@ t_stack				*create_stack(unsigned int *stack_a, unsigned int length);
 int					ft_is_sorted(t_stack *stack);
 unsigned long long	ft_get_stack_length(t_stack *stack);
 
-void				ft_free_stack_and_status(t_stack **stack,
-						t_status **status);
+void				ft_free_stack_and_status(t_stack *stack, t_status *status);
+
 void				ft_free_arguments(char ****arguments);
+
+void				ft_free_stack(t_stack **stack);
+
+void				ft_error_arguments(char ****arguments, int **tmp);
 
 void				ft_swap(t_stack *stack, char stack_name);
 void				ft_both_swap(t_stack **a, t_stack **b);
